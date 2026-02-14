@@ -1,0 +1,22 @@
+[project]
+name = "dl-example"
+version = "0.1.0"
+description = "Deep Learning training framework for MNIST & CIFAR-10 experiments"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "torch",
+    "torchvision",
+    "numpy",
+    "wandb",
+    "tqdm",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu124" }]
+torchvision = [{ index = "pytorch-cu124" }]
