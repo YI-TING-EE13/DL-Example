@@ -92,6 +92,9 @@ def train(config: ExperimentConfig) -> Path:
         write_json(output / "summary.json", summary)
         record["status"] = "complete"
         print(json.dumps({"run_dir": str(output), **summary}, indent=2), flush=True)
+    except KeyboardInterrupt:
+        record.update(status="interrupted")
+        raise
     except Exception as error:
         record.update(status="failed", error=str(error))
         raise
@@ -170,5 +173,7 @@ def main(argv=None) -> None:
             if args.smoke:
                 overrides.update(epochs=1, max_train_samples=1024, max_eval_samples=256)
             train(replace(config, **overrides))
+    except KeyboardInterrupt:
+        parser.exit(130, "Interrupted; the run record preserves its status.\n")
     except (ValueError, OSError, RuntimeError) as error:
         parser.exit(1, f"Error: {error}\n")

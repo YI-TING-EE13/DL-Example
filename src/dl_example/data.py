@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+from pathlib import Path
 
 import torch
 from torch.utils.data import DataLoader, Subset
@@ -21,6 +22,18 @@ def split_indices(size: int, validation_fraction: float, seed: int) -> tuple[lis
 
 def _index_hash(indices: list) -> str:
     return hashlib.sha256(json.dumps(indices, separators=(",", ":")).encode()).hexdigest()
+
+
+def dataset_file_hashes(paths: list[Path]) -> dict[str, str]:
+    """Hash actual dataset input files, independently of the selected indices."""
+    result = {}
+    for path in paths:
+        digest = hashlib.sha256()
+        with path.open("rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(chunk)
+        result[path.name] = digest.hexdigest()
+    return result
 
 
 def prepare_data(config: ExperimentConfig, device: torch.device):
@@ -75,7 +88,20 @@ def prepare_data(config: ExperimentConfig, device: torch.device):
                 generator=torch.Generator().manual_seed(config.seed + position),
             )
         )
+    if config.dataset == "mnist":
+        source_root = Path(train_source.raw_folder)
+        source_names = [
+            "train-images-idx3-ubyte",
+            "train-labels-idx1-ubyte",
+            "t10k-images-idx3-ubyte",
+            "t10k-labels-idx1-ubyte",
+        ]
+    else:
+        source_root = Path(config.data_dir) / train_source.base_folder
+        source_names = [f"data_batch_{number}" for number in range(1, 6)]
+        source_names += ["test_batch", "batches.meta"]
     manifest = {
+        "source_files_sha256": dataset_file_hashes([source_root / name for name in source_names]),
         "dataset": config.dataset,
         "split_seed": config.seed,
         "validation_fraction": config.validation_fraction,

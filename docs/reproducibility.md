@@ -27,7 +27,7 @@ uv run --no-sync python run_cifar.py --smoke
 
 Retain `run.json`, `config.json`, `data.json`, `metrics.csv`, `summary.json`, and the selected checkpoint together. `run.json` records the code commit and whether the working tree was dirty. Record the resolved package lock, GPU/driver information, and validation commands in the verification report. A later documentation commit does not change which code revision produced a result.
 
-The Git SHA alone does not describe ignored data, weights, environments, or uncommitted edits. Index hashes identify the selected example indices; the dataset loader also checks the source dataset files using torchvision's dataset integrity checks. Transforms and source split policies are recorded in `data.json`.
+The Git SHA alone does not describe ignored data, weights, environments, or uncommitted edits. Index hashes identify the selected example indices; SHA-256 hashes separately identify the actual uncompressed input files used by the dataset loaders. Transforms and source split policies are recorded in `data.json`.
 
 ## Numerical expectations
 

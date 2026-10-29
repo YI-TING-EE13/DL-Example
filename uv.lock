@@ -137,7 +137,6 @@ version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "numpy", marker = "sys_platform == 'linux' or sys_platform == 'win32' or (extra == 'extra-10-dl-example-cpu' and extra == 'extra-10-dl-example-cuda')" },
-    { name = "tqdm", marker = "sys_platform == 'linux' or sys_platform == 'win32' or (extra == 'extra-10-dl-example-cpu' and extra == 'extra-10-dl-example-cuda')" },
 ]
 
 [package.optional-dependencies]
@@ -167,7 +166,6 @@ requires-dist = [
     { name = "torch", marker = "extra == 'cuda'", specifier = "==2.6.0", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "dl-example", extra = "cuda" } },
     { name = "torchvision", marker = "extra == 'cpu'", specifier = "==0.21.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "dl-example", extra = "cpu" } },
     { name = "torchvision", marker = "extra == 'cuda'", specifier = "==0.21.0", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "dl-example", extra = "cuda" } },
-    { name = "tqdm", specifier = ">=4.67,<5" },
     { name = "wandb", marker = "extra == 'tracking'", specifier = ">=0.19,<1" },
 ]
 provides-extras = ["cpu", "cuda", "tracking"]
@@ -917,18 +915,6 @@ dependencies = [
 wheels = [
     { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp312-cp312-linux_x86_64.whl", hash = "sha256:efb53ea0af7bf09b7b53e2a18b9be6d245f7d46a90b51d5cf97f37e9b929a991", upload-time = "2025-01-30T01:04:29Z" },
     { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp312-cp312-win_amd64.whl", hash = "sha256:ec63c2ee792757492da40590e34b14f2fceda29050558c215f0c1f3b08149c0f", upload-time = "2025-01-30T01:04:30Z" },
-]
-
-[[package]]
-name = "tqdm"
-version = "4.70.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-10-dl-example-cpu' and extra == 'extra-10-dl-example-cuda')" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/0d/ea/b2a5bd54b28a324dae8211928b2d730b6547500342c7e6c6dea08bd0a485/tqdm-4.70.1.tar.gz", hash = "sha256:cefd0eca11b2a37a3aee776544d4f4ae913f02688135b5556b8788dfa474afc4", size = 171846, upload-time = "2026-09-11T07:25:16.601Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/a7/03/921a3d3c75785aca9ebfbfcabfbc3a1be12e2ab5265deb026d55a5a3f83e/tqdm-4.70.1-py3-none-any.whl", hash = "sha256:c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73", size = 80199, upload-time = "2026-09-11T07:25:14.599Z" },
 ]
 
 [[package]]
