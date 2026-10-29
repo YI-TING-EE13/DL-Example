@@ -8,6 +8,10 @@ Small PyTorch image-classification experiments for learning reproducible develop
 
 Windows with Python 3.12 and uv is the primary teaching environment. CUDA is used when available; CPU execution is supported. See [verification](docs/verification.md) for what was actually tested. Full CIFAR-10 accuracy reproduction is outside the current validation scope.
 
+## Git classroom task
+
+The [classroom contribution guide](docs/teaching.md) requires only Git, a GitHub account, a text editor, and a terminal. Fork and clone the project, write a short explanation, and open a pull request. Python, uv, PyTorch, and model checks are optional for this Git task. The installation and training sections below apply when you run the ML examples.
+
 ## Install
 
 Install [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/). Open PowerShell, clone the repository, and enter its directory:

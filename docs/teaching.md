@@ -1,11 +1,31 @@
 # Classroom contribution workflow
 
-Use this project to practice Git while making one small, reviewable change. Prepare Git, GitHub authentication, uv, the selected compute extra, and the synthetic check before class. Model training is an optional extension to the Git lesson.
+Practice Git by contributing two short explanations. The core lesson takes about 60 minutes; an optional ML extension can follow. Timing is a teaching plan, not a measured classroom result.
+
+## Required tools and optional ML setup
+
+| Required for the Git task | Optional for ML exercises |
+|---|---|
+| Git, GitHub account, editor, terminal | uv and Python 3.12 |
+| Fork, local clone, Git name/email | One PyTorch CPU or CUDA extra |
+| Authentication for pushing to your fork | Synthetic environment check and MNIST smoke run |
+
+Windows and PowerShell are the primary classroom environment. Use Git for Windows with Git Credential Manager (GCM). Open a new PowerShell window after installation:
+
+```powershell
+git --version
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
+Replace the name and email. These settings label commits; they do not sign you in. GitHub offers a no-reply email for public commits.
 
 ## Fork and clone
 
-1. Open [DL-Example](https://github.com/YI-TING-EE13/DL-Example) and choose **Fork**. Keep the default repository name.
-2. Clone your fork. Replace `YOUR-USERNAME` with your actual GitHub username:
+1. Sign in to GitHub and open [DL-Example](https://github.com/YI-TING-EE13/DL-Example).
+2. Click **Fork**, set **Owner** to your own account, and keep the name **DL-Example**. Copying only **main** is sufficient. Click **Create fork**.
+3. Check that your fork's page shows your username as owner. Choose **Code > HTTPS** and copy its URL.
+4. In PowerShell, go to your projects folder and clone your fork. Replace `YOUR-USERNAME` below:
 
 ```powershell
 git clone https://github.com/YOUR-USERNAME/DL-Example.git
@@ -14,11 +34,37 @@ git remote add upstream https://github.com/YI-TING-EE13/DL-Example.git
 git remote -v
 ```
 
-`origin` is your fork because that is what you cloned. `upstream` is a conventional name you assign to the instructor's original repository. A fork is a separate GitHub repository; a branch is a name within a repository. You do not need write access to the instructor's repository to push to your own fork.
+Know the three locations before using their connection names:
+
+- **Original repository:** the instructor's project on GitHub.
+- **Your fork:** your own copy on GitHub.
+- **Local clone:** the copy on your computer that you edit.
+
+`origin` points to your fork because you cloned it. `upstream` is the connection name you assigned to the original project. A fork is a separate GitHub repository; a branch is a name inside a repository. Students need write access to their own forks.
+
+## Check HTTPS sign-in
+
+```powershell
+git push --dry-run origin main
+```
+
+This previews a push without changing your fork. If GCM opens a browser, sign in with the account that owns the fork, approve the requested Git access, and complete two-factor authentication if prompted. Return to PowerShell afterward. Git name/email are separate from authentication. GitHub account passwords are not used as HTTPS Git passwords.
+
+For troubleshooting, use GitHub's [credential instructions](https://docs.github.com/en/get-started/git-basics/caching-your-github-credentials-in-git). The [official fork guide](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo) illustrates the web steps. Other operating systems may have different installation and credential steps.
+
+## Understand staging with a tracked file
+
+The instructor prepares a separate disposable repository with a committed `notes.txt` containing `value=A`. Edit/save B, inspect ordinary diff, add the file, and inspect staged diff. Then save C without adding again. Predict the next ordinary commit before running it:
+
+- Ordinary diff compares index B with working C.
+- Staged diff compares HEAD A with index B.
+- Commit records B; the working file remains C.
+
+After committing B, add C and run `git restore --staged notes.txt`. The index returns to B while working C remains. For a newly staged file, unstage leaves it untracked. Plain `git restore <path>` can discard unstaged edits; use it only as an optional recovery demonstration on disposable content.
 
 ## Start one task
 
-Start with a clean working tree. Update local main from the original repository, then create a task branch:
+Begin with a clean working tree. Update local main, update your fork's main, then create the task branch:
 
 ```powershell
 git status
@@ -29,41 +75,63 @@ git push origin main
 git switch -c docs/classroom-note
 ```
 
-Here `fetch` updates your local knowledge of upstream history. The explicit fast-forward merge updates local main. If Git reports divergent history, inspect it with the instructor; do not force-push.
+Fetch downloads commits and updates your local record of the original main branch (`upstream/main`); it does not change your working files. The fast-forward merge updates local main when history permits. If a command fails, read its message and inspect status before continuing. Ask the instructor about divergent history; a force push or destructive reset is not a general recovery step.
 
-## A small documentation task
+The contribution then follows this sequence:
 
-The instructor can assign: **Create `docs/classroom-notes/YOUR-USERNAME.md` with one sentence explaining editor save versus commit, and one sentence explaining commit versus push.** The file's contents must be your own explanation. Do not add personal contact information or training artifacts.
+**Choose task > create branch > edit/save > inspect/add/verify > commit locally > push to fork > open PR > review/merge.**
 
-Inspect, select, verify, and commit the task file:
+Use the update/start sequence once per new task. Do not repeatedly create an existing branch.
+
+## Create a new documentation file
+
+Create `docs/classroom-notes/YOUR-USERNAME.md` in your editor, making the directory if needed. Write one sentence explaining editor save versus commit, and one explaining commit versus push. Use your own GitHub username and explanation; include no personal contact information or training artifacts.
+
+This file starts **untracked**. It differs from the tracked `notes.txt` staging demonstration below. Inspect and select it:
 
 ```powershell
 git status
 git diff
 git add docs/classroom-notes/YOUR-USERNAME.md
 git diff --staged
-uv run --no-sync python -m dl_example check
+```
+
+Status lists a new untracked file, but ordinary diff does not show its content. Read it in your editor first. After add, read the staged diff and verify the intended file and text.
+
+**Pause before commit: What will your next commit contain?** Point to the selected file and lines. Remember that a staged diff shows changes from HEAD, not the entire snapshot; unchanged tracked contents remain included.
+
+```powershell
 git commit -m "docs: explain local and shared version records"
 git push -u origin docs/classroom-note
 ```
 
-A newly created untracked file is listed by status, but ordinary `git diff` does not show its contents. Inspect it in the editor, then inspect the staged diff after add. The synthetic check verifies the environment; the reviewer must still read the explanation for conceptual accuracy.
+**Pause after push: Where does your committed change exist now?** Name every location containing it. Explain whether the original main branch has changed and what must happen before it does.
 
 ## Open and revise a pull request
 
-On GitHub choose **Compare across forks** when needed:
+On the original repository, choose **Pull requests > New pull request**, then **Compare across forks** when needed:
 
-- Base repository: `YI-TING-EE13/DL-Example`; base branch: `main`.
-- Head repository: your fork; compare branch: `docs/classroom-note`.
+| Question | Selection |
+|---|---|
+| Where should the change go? | **Base:** `YI-TING-EE13/DL-Example`, branch `main` |
+| Where does the change come from? | **Head:** your fork, branch `docs/classroom-note` |
 
-Explain what changed and how you checked it. Respond to feedback by committing and pushing to the same task branch; the open PR updates. An open PR is the minimum classroom outcome. The instructor controls merge decisions. Classroom PRs are not guaranteed to be merged.
+Read the displayed diff before choosing **Create pull request**. Explain what changed and how you checked it. Review the two sentences for conceptual accuracy; a synthetic Python check cannot assess their meaning and is not required for this task.
 
-## Understand staging before practice
-
-In a disposable practice branch, create a text file, commit a baseline value, change it to B, add it, then change it to C without adding again. Predict the next commit's content, compare `git diff` and `git diff --staged`, and check the committed content. That commit records B; the working file remains C.
-
-Use `git restore --staged <path>` to reset the staging selection while preserving edits. `git restore <path>` replaces a tracked working file from the index and can discard an unstaged edit. Inspect first and use disposable examples for destructive practice.
+Show the open PR, its intended file/text, and your answers to both pause questions. Keep the branch name, commit SHA, and PR link. Respond to feedback by committing and pushing to the same task branch; the PR updates. Opening a PR proposes a change; it does not merge it. Approval and merge are separate decisions. Maintainer approval may also be needed for fork CI. An open PR is sufficient for the classroom submission; review and merge can happen later.
 
 ## Optional ML extension
 
-Run the MNIST smoke configuration. Find the run's configuration, code revision, split manifest, and summary. Explain why changing an ignored local dataset or running uncommitted code cannot be described completely by a commit SHA. Full MNIST training and CIFAR-10 are separate from the 15-minute Git task.
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and check `uv --version`. The project requires Python 3.12. Follow the [README installation steps](../README.md#install) to select exactly one of `cpu` or `cuda`; uv uses the project's Python pin and lockfile. A compatible NVIDIA setup uses CUDA automatically, while CPU execution remains available.
+
+After installation:
+
+```powershell
+uv run --no-sync python --version
+uv run --no-sync python -m dl_example check
+uv run --no-sync python run_mnist.py --smoke
+```
+
+Confirm Python 3.12. The synthetic check uses no dataset. The smoke run downloads the complete source MNIST dataset on first use despite training on subsets; prepare it before class.
+
+Inspect the run's actual settings, code revision, split/input manifest, environment, and summary. Two students can use the same commit with different ignored data or command-line settings and obtain different results. Full MNIST training and CIFAR-10 remain separate from the Git task. See [verification](verification.md) for the measured validation scope.
