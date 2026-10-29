@@ -1,6 +1,6 @@
 # Classroom contribution workflow
 
-Practice Git by contributing two short explanations. The core lesson takes about 60 minutes; an optional ML extension can follow. Timing is a teaching plan, not a measured classroom result.
+Practice Git by contributing two short explanations. The core lesson takes about 60 minutes; an optional ML extension can follow. Reserve about 21 minutes for the first contribution after preclass setup. Allow 75 minutes if installation or sign-in must happen in class. Timing is a teaching plan, not a measured classroom result.
 
 ## Required tools and optional ML setup
 
@@ -50,6 +50,8 @@ git push --dry-run origin main
 
 This previews a push without changing your fork. If GCM opens a browser, sign in with the account that owns the fork, approve the requested Git access, and complete two-factor authentication if prompted. Return to PowerShell afterward. Git name/email are separate from authentication. GitHub account passwords are not used as HTTPS Git passwords.
 
+**This is a preliminary check. Your first actual push will confirm that you can publish changes to your fork.** A dry run does not guarantee that every later push or server-side check will succeed. If the first real push fails authentication, diagnose the message with the instructor; it does not by itself show incorrect staging or committing.
+
 For troubleshooting, use GitHub's [credential instructions](https://docs.github.com/en/get-started/git-basics/caching-your-github-credentials-in-git). The [official fork guide](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo) illustrates the web steps. Other operating systems may have different installation and credential steps.
 
 ## Understand staging with a tracked file
@@ -62,7 +64,22 @@ The instructor prepares a separate disposable repository with a committed `notes
 
 After committing B, add C and run `git restore --staged notes.txt`. The index returns to B while working C remains. For a newly staged file, unstage leaves it untracked. Plain `git restore <path>` can discard unstaged edits; use it only as an optional recovery demonstration on disposable content.
 
-## Start one task
+### Repeat the experiment yourself
+
+Use the Git identity from preclass setup. In PowerShell, go to your projects folder, **outside DL-Example and any other repository**. Choose a new folder name for each attempt:
+
+```powershell
+mkdir git-state-lab
+cd git-state-lab
+git init -b main
+Set-Content -Encoding ascii notes.txt "value=A"
+git add notes.txt
+git commit -m "Prepare baseline A"
+```
+
+You now have the tracked A baseline. Use the staging example above: save B, add it, then save C without adding again. Predict and compare before committing. `git show HEAD:notes.txt` reads the recorded version; `Get-Content notes.txt` reads the working file. To repeat from A, use a new folder rather than resetting existing work. A clone already contains Git data; do not initialize a nested repository inside it.
+
+## Hands-on Part 1: local Git
 
 Begin with a clean working tree. Update local main, update your fork's main, then create the task branch:
 
@@ -83,11 +100,11 @@ The contribution then follows this sequence:
 
 Use the update/start sequence once per new task. Do not repeatedly create an existing branch.
 
-## Create a new documentation file
+### Create a new documentation file
 
 Create `docs/classroom-notes/YOUR-USERNAME.md` in your editor, making the directory if needed. Write one sentence explaining editor save versus commit, and one explaining commit versus push. Use your own GitHub username and explanation; include no personal contact information or training artifacts.
 
-This file starts **untracked**. It differs from the tracked `notes.txt` staging demonstration below. Inspect and select it:
+This file starts **untracked**. It differs from the tracked `notes.txt` staging demonstration above. Inspect and select it:
 
 ```powershell
 git status
@@ -102,12 +119,24 @@ Status lists a new untracked file, but ordinary diff does not show its content. 
 
 ```powershell
 git commit -m "docs: explain local and shared version records"
+git status
+```
+
+This completes the local part. Your commit has not yet been published.
+
+## Hands-on Part 2: GitHub collaboration
+
+In the same clone and on the same task branch, use PowerShell to publish the branch:
+
+```powershell
 git push -u origin docs/classroom-note
 ```
 
+Keep any authentication error message for diagnosis. After a successful push, continue on GitHub.
+
 **Pause after push: Where does your committed change exist now?** Name every location containing it. Explain whether the original main branch has changed and what must happen before it does.
 
-## Open and revise a pull request
+### Open and revise a pull request
 
 On the original repository, choose **Pull requests > New pull request**, then **Compare across forks** when needed:
 
