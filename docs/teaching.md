@@ -81,7 +81,7 @@ You now have the tracked A baseline. Use the staging example above: save B, add 
 
 ## Hands-on Part 1: local Git
 
-Begin with a clean working tree. Update local main, update your fork's main, then create the task branch:
+Return to your DL-Example clone in PowerShell; the staging lab is a separate repository. Begin with a clean working tree. Update local main, update your fork's main, then create the task branch:
 
 ```powershell
 git status
