@@ -1,0 +1,318 @@
+{
+  "verification_date_local": "2026-10-30",
+  "timezone": "Asia/Taipei",
+  "executable_commit": "d3eac41e9f5c62639ab4370f6f0a422a07cc772a",
+  "original_baseline": {
+    "commit": "cafedbb5c23bbd9585e4e079c50b47b57a08b0c2",
+    "epochs": 5,
+    "best_reported_accuracy": 0.9908,
+    "selection_data": "Official test split, used as validation by original code"
+  },
+  "repeatability": {
+    "config_equal": true,
+    "data_manifest_equal": true,
+    "epoch_csv_equal": true,
+    "test_metrics_equal": true,
+    "all_best_model_tensors_equal": true
+  },
+  "lock_sha256": "53bf8a48dcabd2ccb22a2b371d74ba2b41ff03c1309be0966760ae720a2d5777",
+  "runs": [
+    {
+      "run_id": "mnist-20261029T162958Z-c4f5c1bb",
+      "environment": {
+        "python": "3.12.11",
+        "platform": "Windows",
+        "torch": "2.6.0+cu124",
+        "torchvision": "0.21.0+cu124",
+        "numpy": "2.5.4",
+        "cuda_runtime": "12.4",
+        "cudnn": 90100,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "git_commit": "d3eac41e9f5c62639ab4370f6f0a422a07cc772a",
+        "git_dirty": false,
+        "command": [
+          "run_mnist.py",
+          "--config",
+          "configs/mnist.toml"
+        ],
+        "deterministic_algorithms": true,
+        "cublas_workspace_config": ":4096:8"
+      },
+      "config": {
+        "dataset": "mnist",
+        "epochs": 5,
+        "batch_size": 64,
+        "lr": 0.001,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 0,
+        "validation_fraction": 0.1,
+        "momentum": 0.9,
+        "weight_decay": 0.0,
+        "early_stop_patience": 0,
+        "max_train_samples": null,
+        "max_eval_samples": null,
+        "data_dir": "data",
+        "output_dir": "runs",
+        "tracking": false
+      },
+      "data": {
+        "source_files_sha256": {
+          "train-images-idx3-ubyte": "ba891046e6505d7aadcbbe25680a0738ad16aec93bde7f9b65e87a2fc25776db",
+          "train-labels-idx1-ubyte": "65a50cbbf4e906d70832878ad85ccda5333a97f0f4c3dd2ef09a8a9eef7101c5",
+          "t10k-images-idx3-ubyte": "0fa7898d509279e482958e8ce81c8e77db3f2f8254e26661ceb7762c4d494ce7",
+          "t10k-labels-idx1-ubyte": "ff7bcfd416de33731a308c3f266cc351222c34898ecbeaf847f06e48f7ec33f2"
+        },
+        "dataset": "mnist",
+        "split_seed": 42,
+        "validation_fraction": 0.1,
+        "train_samples": 54000,
+        "validation_samples": 6000,
+        "test_samples": 10000,
+        "train_index_sha256": "73de8075873f8215bf45d166051a73edb1b35cf44e93e935de082a67f02d6140",
+        "validation_index_sha256": "63c20f80af234d1679acecaab16642d68ccc7c0b64b946f545eb7b7b5867db04",
+        "test_index_sha256": "a74675bfed3834ac1c3140b2d7fb7d93d90a76608cc08515a5019a1cb2075ff4",
+        "training_transform": "Compose(\n    ToTensor()\n    Normalize(mean=(0.1307,), std=(0.3081,))\n)",
+        "evaluation_transform": "Compose(\n    ToTensor()\n    Normalize(mean=(0.1307,), std=(0.3081,))\n)",
+        "test_policy": "Official test split; excluded from model selection and early stopping"
+      },
+      "summary": {
+        "epochs_completed": 5,
+        "best_epoch": 5,
+        "best_validation_accuracy": 0.9888333333333333,
+        "test": {
+          "loss": 0.032441930253783356,
+          "accuracy": 0.9902,
+          "samples": 10000
+        },
+        "elapsed_seconds": 47.19672409980558,
+        "scope": "full"
+      }
+    },
+    {
+      "run_id": "mnist-20261029T163048Z-7c0a8265",
+      "environment": {
+        "python": "3.12.11",
+        "platform": "Windows",
+        "torch": "2.6.0+cu124",
+        "torchvision": "0.21.0+cu124",
+        "numpy": "2.5.4",
+        "cuda_runtime": "12.4",
+        "cudnn": 90100,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "git_commit": "d3eac41e9f5c62639ab4370f6f0a422a07cc772a",
+        "git_dirty": false,
+        "command": [
+          "run_mnist.py",
+          "--config",
+          "configs/mnist.toml"
+        ],
+        "deterministic_algorithms": true,
+        "cublas_workspace_config": ":4096:8"
+      },
+      "config": {
+        "dataset": "mnist",
+        "epochs": 5,
+        "batch_size": 64,
+        "lr": 0.001,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 0,
+        "validation_fraction": 0.1,
+        "momentum": 0.9,
+        "weight_decay": 0.0,
+        "early_stop_patience": 0,
+        "max_train_samples": null,
+        "max_eval_samples": null,
+        "data_dir": "data",
+        "output_dir": "runs",
+        "tracking": false
+      },
+      "data": {
+        "source_files_sha256": {
+          "train-images-idx3-ubyte": "ba891046e6505d7aadcbbe25680a0738ad16aec93bde7f9b65e87a2fc25776db",
+          "train-labels-idx1-ubyte": "65a50cbbf4e906d70832878ad85ccda5333a97f0f4c3dd2ef09a8a9eef7101c5",
+          "t10k-images-idx3-ubyte": "0fa7898d509279e482958e8ce81c8e77db3f2f8254e26661ceb7762c4d494ce7",
+          "t10k-labels-idx1-ubyte": "ff7bcfd416de33731a308c3f266cc351222c34898ecbeaf847f06e48f7ec33f2"
+        },
+        "dataset": "mnist",
+        "split_seed": 42,
+        "validation_fraction": 0.1,
+        "train_samples": 54000,
+        "validation_samples": 6000,
+        "test_samples": 10000,
+        "train_index_sha256": "73de8075873f8215bf45d166051a73edb1b35cf44e93e935de082a67f02d6140",
+        "validation_index_sha256": "63c20f80af234d1679acecaab16642d68ccc7c0b64b946f545eb7b7b5867db04",
+        "test_index_sha256": "a74675bfed3834ac1c3140b2d7fb7d93d90a76608cc08515a5019a1cb2075ff4",
+        "training_transform": "Compose(\n    ToTensor()\n    Normalize(mean=(0.1307,), std=(0.3081,))\n)",
+        "evaluation_transform": "Compose(\n    ToTensor()\n    Normalize(mean=(0.1307,), std=(0.3081,))\n)",
+        "test_policy": "Official test split; excluded from model selection and early stopping"
+      },
+      "summary": {
+        "epochs_completed": 5,
+        "best_epoch": 5,
+        "best_validation_accuracy": 0.9888333333333333,
+        "test": {
+          "loss": 0.032441930253783356,
+          "accuracy": 0.9902,
+          "samples": 10000
+        },
+        "elapsed_seconds": 46.180639300029725,
+        "scope": "full"
+      }
+    },
+    {
+      "run_id": "mnist-20261029T163646Z-6dc38c89",
+      "environment": {
+        "python": "3.12.11",
+        "platform": "Windows",
+        "torch": "2.6.0+cpu",
+        "torchvision": "0.21.0+cpu",
+        "numpy": "2.5.4",
+        "cuda_runtime": null,
+        "cudnn": null,
+        "device": "cpu",
+        "gpu": null,
+        "git_commit": "d3eac41e9f5c62639ab4370f6f0a422a07cc772a",
+        "git_dirty": false,
+        "command": [
+          "run_mnist.py",
+          "--smoke",
+          "--device",
+          "cpu"
+        ],
+        "deterministic_algorithms": true,
+        "cublas_workspace_config": ":4096:8"
+      },
+      "config": {
+        "dataset": "mnist",
+        "epochs": 1,
+        "batch_size": 64,
+        "lr": 0.001,
+        "seed": 42,
+        "device": "cpu",
+        "num_workers": 0,
+        "validation_fraction": 0.1,
+        "momentum": 0.9,
+        "weight_decay": 0.0,
+        "early_stop_patience": 0,
+        "max_train_samples": 1024,
+        "max_eval_samples": 256,
+        "data_dir": "data",
+        "output_dir": "runs",
+        "tracking": false
+      },
+      "data": {
+        "source_files_sha256": {
+          "train-images-idx3-ubyte": "ba891046e6505d7aadcbbe25680a0738ad16aec93bde7f9b65e87a2fc25776db",
+          "train-labels-idx1-ubyte": "65a50cbbf4e906d70832878ad85ccda5333a97f0f4c3dd2ef09a8a9eef7101c5",
+          "t10k-images-idx3-ubyte": "0fa7898d509279e482958e8ce81c8e77db3f2f8254e26661ceb7762c4d494ce7",
+          "t10k-labels-idx1-ubyte": "ff7bcfd416de33731a308c3f266cc351222c34898ecbeaf847f06e48f7ec33f2"
+        },
+        "dataset": "mnist",
+        "split_seed": 42,
+        "validation_fraction": 0.1,
+        "train_samples": 1024,
+        "validation_samples": 256,
+        "test_samples": 256,
+        "train_index_sha256": "d778276c65eb028673726aeb55efe5db2f588c8c22fca939c070124d884c6461",
+        "validation_index_sha256": "520462a1698a718122c92f65429548d8d8c1853c5bee532714cf5bf02c16552c",
+        "test_index_sha256": "be66c2867e103fa00c88539675e5cd95f52ec5e38d9038e6d3710539f6c0aec1",
+        "training_transform": "Compose(\n    ToTensor()\n    Normalize(mean=(0.1307,), std=(0.3081,))\n)",
+        "evaluation_transform": "Compose(\n    ToTensor()\n    Normalize(mean=(0.1307,), std=(0.3081,))\n)",
+        "test_policy": "Official test split; excluded from model selection and early stopping"
+      },
+      "summary": {
+        "epochs_completed": 1,
+        "best_epoch": 1,
+        "best_validation_accuracy": 0.83203125,
+        "test": {
+          "loss": 0.634454533457756,
+          "accuracy": 0.83984375,
+          "samples": 256
+        },
+        "elapsed_seconds": 8.778739699861035,
+        "scope": "smoke"
+      }
+    },
+    {
+      "run_id": "cifar10-20261029T164528Z-5df1d9b6",
+      "environment": {
+        "python": "3.12.11",
+        "platform": "Windows",
+        "torch": "2.6.0+cu124",
+        "torchvision": "0.21.0+cu124",
+        "numpy": "2.5.4",
+        "cuda_runtime": "12.4",
+        "cudnn": 90100,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 3060",
+        "git_commit": "d3eac41e9f5c62639ab4370f6f0a422a07cc772a",
+        "git_dirty": false,
+        "command": [
+          "run_cifar.py",
+          "--smoke",
+          "--num-workers",
+          "2"
+        ],
+        "deterministic_algorithms": true,
+        "cublas_workspace_config": ":4096:8"
+      },
+      "config": {
+        "dataset": "cifar10",
+        "epochs": 1,
+        "batch_size": 128,
+        "lr": 0.1,
+        "seed": 42,
+        "device": "auto",
+        "num_workers": 2,
+        "validation_fraction": 0.1,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "early_stop_patience": 10,
+        "max_train_samples": 1024,
+        "max_eval_samples": 256,
+        "data_dir": "data",
+        "output_dir": "runs",
+        "tracking": false
+      },
+      "data": {
+        "source_files_sha256": {
+          "data_batch_1": "54636561a3ce25bd3e19253c6b0d8538147b0ae398331ac4a2d86c6d987368cd",
+          "data_batch_2": "766b2cef9fbc745cf056b3152224f7cf77163b330ea9a15f9392beb8b89bc5a8",
+          "data_batch_3": "0f00d98ebfb30b3ec0ad19f9756dc2630b89003e10525f5e148445e82aa6a1f9",
+          "data_batch_4": "3f7bb240661948b8f4d53e36ec720d8306f5668bd0071dcb4e6c947f78e9682b",
+          "data_batch_5": "d91802434d8376bbaeeadf58a737e3a1b12ac839077e931237e0dcd43adcb154",
+          "test_batch": "f53d8d457504f7cff4ea9e021afcf0e0ad8e24a91f3fc42091b8adef61157831",
+          "batches.meta": "f962466ef690d46b226450fb9aadc74ba4bc64a76aa526b5827fe4bc5c7125cb"
+        },
+        "dataset": "cifar10",
+        "split_seed": 42,
+        "validation_fraction": 0.1,
+        "train_samples": 1024,
+        "validation_samples": 256,
+        "test_samples": 256,
+        "train_index_sha256": "321945a80f18a9f6820bef85f20dda5d4cdce595d21b8e5a61a9311986516b1b",
+        "validation_index_sha256": "d63d4d624e7de62444acb04399c6105a354c306f5a11cfa5496b63a29dddba6e",
+        "test_index_sha256": "be66c2867e103fa00c88539675e5cd95f52ec5e38d9038e6d3710539f6c0aec1",
+        "training_transform": "Compose(\n    RandomCrop(size=(32, 32), padding=4)\n    RandomHorizontalFlip(p=0.5)\n    ToTensor()\n    Normalize(mean=(0.4914, 0.4822, 0.4465), std=(0.2023, 0.1994, 0.201))\n)",
+        "evaluation_transform": "Compose(\n    ToTensor()\n    Normalize(mean=(0.4914, 0.4822, 0.4465), std=(0.2023, 0.1994, 0.201))\n)",
+        "test_policy": "Official test split; excluded from model selection and early stopping"
+      },
+      "summary": {
+        "epochs_completed": 1,
+        "best_epoch": 1,
+        "best_validation_accuracy": 0.16015625,
+        "test": {
+          "loss": 2.463198661804199,
+          "accuracy": 0.16796875,
+          "samples": 256
+        },
+        "elapsed_seconds": 24.704614299815148,
+        "scope": "smoke"
+      }
+    }
+  ]
+}
