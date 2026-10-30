@@ -14,6 +14,8 @@ The [classroom contribution guide](docs/teaching.md) requires only Git, a GitHub
 
 Create your own file in [docs/classroom-notes](docs/classroom-notes/README.md). After the two individual questions, save branch, contribution SHA, PR URL, Content answer, and Location answer together using the [submission template](docs/classroom-submission.md). Blocked publication uses truthful pending fields and private collection. See [course preparation and readiness](docs/course-ready.md) for instructor checks.
 
+Use the latest `main` as the classroom starting point. [Branch authority and the current audit scope](docs/course-ready.md#branch-authority) distinguish delivery from preserved implementation and PR history.
+
 ## Install
 
 Install [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/). Open PowerShell, clone the repository, and enter its directory:

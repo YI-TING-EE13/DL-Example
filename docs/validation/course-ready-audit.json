@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-30",
+  "audited_executable_base": "c208cf12d8e3a28e574b04a4ae0e3aa8aa7cff11",
+  "scope": "Review of all 38 preexisting tracked files, including 16 Python source/tests and English comments/docstrings. Newly added readiness documentation reviewed separately. Runtime and dependency files unchanged.",
+  "runtime_file_sha256": {
+    "configs/cifar10.toml": "4dbf75c28ccb217119483e38df2a82f0c6c5fac91a5aa627b4c95ca8d36642fa",
+    "configs/mnist.toml": "606c94a6d02f353c93ec88a30c2b2a568eeb12c2b74d4995f7a0ad3995af4e83",
+    "pyproject.toml": "8131867f6ed1ba6fca163d6cc2a856801f0c943d74b5f0ea9e9fe6c6dd46b001",
+    "run_cifar.py": "dfdf791af7eb6cd29632a923f97b000d5b1e62a0813845e2fcabb51247754603",
+    "run_mnist.py": "8dcc0308e7dc6e19f360a39bba0cde66b6672b8d04a89a10d5050bad210f6451",
+    "src/dl_example/__init__.py": "420074f4c5e881a355bccaa679330dbd30bb30398aa1c35a18804ac83d7e345f",
+    "src/dl_example/__main__.py": "8ad49e9996452da6ec62f77f8ffce651b348d4d9f6abc354436fcfa09b317a3b",
+    "src/dl_example/cli.py": "27a85d176c6bbe17c02506fc79204ac3b6cfa7387073e9a480c95b58c8c14f10",
+    "src/dl_example/config.py": "491c3b44f5d724e96a4728aacac6c35eba618e693ce46e9f747d660c13bd1f80",
+    "src/dl_example/data.py": "de96dade7dc2e539e4b7399282a012223eaa6fd6e5630f949a6279afd58203ce",
+    "src/dl_example/models/__init__.py": "03ca07530330ab6f4d0227444082b0b446aebfb5748c18967cb6701f519e7046",
+    "src/dl_example/models/cifar_shake.py": "59de8ba74fba2c7592df4fe79424f7bf079f678551c52fb1e93a8e2d240356ba",
+    "src/dl_example/models/mnist_cnn.py": "98c59443b5aad816f6a1c511943c8c67b39f94cf2c46af508a96e1c2e5a71a03",
+    "src/dl_example/reproducibility.py": "d9f3ea1a6ffc562571aca52a911c4ff89eba22957ba9613b24cb331da4878467",
+    "src/dl_example/trainer.py": "5f6d57bf6ee9b02a415d4994b83a7e4758c4e5b97e69e28584efd124c2f03b1b",
+    "tests/conftest.py": "477b41d6299b8aa286d8ff1b0b685b32dd5ef1d6aa281c412c471cc99f810bbd",
+    "tests/test_config.py": "9f5f239917b5bf239773c3e38d9a88bbc1f76ae5fc92f60608217e208bf01c3b",
+    "tests/test_run_evidence.py": "d74050805ecb17970a67b16891a35217f71447be5ee7ac0be02e3d627e10437f",
+    "tests/test_training.py": "a49b8cd1391d0613accf308a8f093a51a2f4933415bb86fa9095fb26f6902da4",
+    "uv.lock": "53bf8a48dcabd2ccb22a2b371d74ba2b41ff03c1309be0966760ae720a2d5777"
+  },
+  "local_environment": {
+    "platform": "Windows",
+    "python": "3.12.11",
+    "compute_extra": "cpu",
+    "torch": "2.6.0+cpu"
+  },
+  "commands": [
+    {
+      "command": "uv sync --locked --extra cpu --python 3.12",
+      "result": "PASS"
+    },
+    {
+      "command": "uv run --no-sync ruff check .",
+      "result": "PASS"
+    },
+    {
+      "command": "uv run --no-sync ruff format --check .",
+      "result": "PASS"
+    },
+    {
+      "command": "uv run --no-sync pytest -q",
+      "result": "PASS",
+      "tests_passed": 28
+    },
+    {
+      "command": "uv run --no-sync python -m dl_example check --device cpu",
+      "result": "PASS",
+      "dataset_downloaded": false
+    }
+  ],
+  "branch_authority": "main",
+  "historical_refs": [
+    {
+      "ref": "origin/docs/classroom-round4-20261030",
+      "sha": "209c5a8bb7da438ae9537f52f276e97fa070c5a6",
+      "ancestor_of_main": false,
+      "same_tree_as_main": true,
+      "main_only_branch_only": "1\t4"
+    },
+    {
+      "ref": "origin/refactor/reproducible-teaching-example",
+      "sha": "d3eac41e9f5c62639ab4370f6f0a422a07cc772a",
+      "ancestor_of_main": true,
+      "same_tree_as_main": false,
+      "main_only_branch_only": "9\t0"
+    }
+  ],
+  "historical_metrics": "Both preserved five-epoch metric CSV files match; reference JSON parses. Original results were not relabelled as new measurements.",
+  "limitations": [
+    "No fresh full MNIST/CIFAR-10 training or numerical reproduction",
+    "No new GPU or optional tracking acceptance",
+    "No real student/projector trial"
+  ]
+}
