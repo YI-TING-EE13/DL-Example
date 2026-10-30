@@ -58,7 +58,7 @@ For troubleshooting, use GitHub's [credential instructions](https://docs.github.
 
 Use a disposable repository outside DL-Example. The instructor demonstrates the basic A-to-B cycle before the prediction below. The branch and GitHub concept pages in the handout are demonstrations; begin your own contribution only at Hands-on Part 1.
 
-Start with a committed `notes.txt` containing `value=A`. Save B, run `git add notes.txt`, then save C without adding again. Before committing, fill the final row independently:
+Start in a new practice repository with `value=A` already committed in `notes.txt`. The table entries are file contents; HEAD means content in the current commit. Save B, run `git add notes.txt`, then save C without adding again. Before committing, fill the final row independently:
 
 | Action | Working file | Index | HEAD |
 |---|---|---|---|
@@ -78,16 +78,16 @@ Changes not staged for commit:
     modified:   notes.txt
 ```
 
-The first group contains selected changes; the second contains edits made after add. One path can appear in both groups. Inspect both comparisons and point to evidence for your prediction:
+The first group contains selected changes. The second contains working-file changes not selected for commit; here, these are the edits from B to C. A tracked edit can also appear in this group before add or after unstage. One path can appear in both groups. Inspect both comparisons and point to evidence for your prediction:
 
 | Command | Before -> after |
 |---|---|
 | `git diff --staged -- notes.txt` | HEAD -> index: A -> B |
 | `git diff -- notes.txt` | Index -> working tree: B -> C |
 
-In a patch, `-` marks the before side and `+` marks the after side. The staged patch includes `-value=A` and `+value=B`; ordinary diff includes `-value=B` and `+value=C`.
+In a patch, `-` marks a removed line and `+` an added line in that comparison. The staged patch includes `-value=A` and `+value=B`; `git diff` includes `-value=B` and `+value=C`.
 
-Consider one change before testing: if you add `notes.txt` again after saving C, what will the first commit contain? Write a prediction. Then test the original sequence **without another add**:
+After the class prediction check, execute the original sequence **without another add**:
 
 ```powershell
 git commit -m "Record the staged value"
@@ -96,9 +96,13 @@ git show :notes.txt
 git show HEAD:notes.txt
 ```
 
-Compare the working file, index, and commit with your prediction. After checking, add the file again and use `git restore --staged notes.txt`. Working edits remain; inspect status. For a newly staged file, unstage leaves it untracked. Plain `git restore <path>` can discard unstaged edits; keep that demonstration on disposable content.
+Compare the working file, index, and commit with your prediction. Explain any difference.
 
-Adding only `notes.txt` does not clear a README change staged earlier. Review the entire staged diff. An empty ordinary diff can coexist with staged and untracked changes; inspect status for the full picture.
+Now consider one change to that original sequence: what if you had added `notes.txt` again after saving C? Predict the first commit's content; a second execution is not required.
+
+After this check, add the file again and use `git restore --staged notes.txt`. Working edits remain; inspect status. For a newly staged file, unstage leaves it untracked. Plain `git restore <path>` can discard unstaged edits; keep that demonstration on disposable content.
+
+Adding only `notes.txt` does not clear a README change staged earlier. Review the entire staged diff. An empty `git diff` can coexist with staged and untracked changes; inspect status for the full picture.
 
 <details>
 <summary>Self-study answer check — open after predicting and observing</summary>
@@ -128,8 +132,10 @@ Status should report a clean working tree. For another attempt, change the folde
 Return to your DL-Example clone in PowerShell; the staging lab is a separate repository. Choose the path before running commands:
 
 - **First attempt:** inspect status and begin with a clean working tree and no existing `docs/classroom-note` branch. Run the block below once.
-- **Resume this same unfinished task:** skip that block. Stay on its branch, or inspect status and use `git switch docs/classroom-note` from a clean working tree. Preserve existing edits and ask the instructor if they prevent switching.
+- **Resume this same unfinished task:** skip that block. Stay on its branch, or inspect status and use `git switch docs/classroom-note` from a clean working tree. Keep your existing note and continue from the first unfinished step. If the intended note is already committed, continue with Part 2. If a PR already exists, open it and address feedback on the same branch. Preserve existing edits and ask the instructor if they prevent switching.
 - **A different new task:** update main and create a different task branch name. Switching to an old branch resumes its existing history; it does not restart it from updated main.
+
+**Run one command at a time. If a command fails, stop and show the message to the instructor.** A clean working tree does not guarantee that a fast-forward update will succeed.
 
 First-attempt commands:
 
@@ -148,7 +154,7 @@ The student workflow is: **start or resume > edit/save > inspect/add/verify > co
 
 ### Create a new documentation file
 
-Create `docs/classroom-notes/YOUR-USERNAME.md` in your editor, making the directory if needed. Replace the username. Start with these headings:
+Create `docs/classroom-notes/YOUR-USERNAME.md` in your editor, making the directory if needed. Replace `YOUR-USERNAME` with your GitHub username in both the filename and the `git add` command. Start with these headings:
 
 ```markdown
 ## Save and commit
@@ -167,7 +173,7 @@ git add docs/classroom-notes/YOUR-USERNAME.md
 git diff --staged
 ```
 
-Status lists a new untracked file, but ordinary diff does not show its content. Read it in your editor first. After add, read the staged diff and verify the intended file and text.
+Status lists a new untracked file, but `git diff` does not show its content. Read it in your editor first. After add, read the staged diff and verify the intended file and text.
 
 **Pause before commit: What will your next commit contain?** Point to the selected file and lines. Remember that a staged diff shows changes from HEAD, not the entire snapshot; unchanged tracked contents remain included.
 
@@ -176,7 +182,7 @@ git commit -m "docs: explain local and shared version records"
 git status
 ```
 
-This completes the local part. Your commit has not yet been published.
+This completes the local part. Your commit has not yet been published. If a repeated attempt reports `nothing to commit`, inspect `git status`, `git log --oneline -3`, and your existing note and commit with the instructor. Continue from the first unfinished step instead of manufacturing another edit.
 
 ## Hands-on Part 2: GitHub collaboration
 
@@ -201,7 +207,7 @@ On the original repository, choose **Pull requests > New pull request**, then **
 
 ### Review the diff, then create the PR
 
-Review the displayed diff and confirm that it contains only the intended file and changes. Select **Create pull request**, add a short title and description of what changed and how you checked it, then submit the PR. A reviewer checks the sentences for conceptual accuracy; a synthetic Python check is not required for this task.
+Check that the diff contains only your intended file and changes. Select **Create pull request**, add a short title and description of what changed and how you checked it, then submit the PR. A reviewer checks the sentences for conceptual accuracy; a synthetic Python check is not required for this task.
 
 ### Record and revise your result
 
