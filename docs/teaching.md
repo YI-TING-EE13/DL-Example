@@ -1,6 +1,6 @@
 # Classroom contribution workflow
 
-Practice Git by contributing two short explanations. The core lesson takes about 60 minutes; an optional ML extension can follow. Reserve about 21 minutes for the first contribution after preclass setup. Allow 75 minutes if installation or sign-in must happen in class. Timing is a teaching plan, not a measured classroom result.
+Practice Git by contributing two short explanations. Prefer a 75-minute first class after preclass setup: 24 minutes for student contribution, five for individual answers and collection, and three for questions/buffer. The prepared 60-minute alternative reserves 21 minutes for contribution and four for collection. Installation or sign-in during the 75-minute class can extend it to 90 minutes without ML activities. Timing is a teaching plan, not a measured classroom result.
 
 ## Required tools and optional ML setup
 
@@ -56,7 +56,7 @@ For troubleshooting, use GitHub's [credential instructions](https://docs.github.
 
 ## Understand staging with a tracked file
 
-Use a disposable repository outside DL-Example. The instructor demonstrates the basic A-to-B cycle before the prediction below. The branch and GitHub concept pages in the handout are demonstrations; begin your own contribution only at Hands-on Part 1.
+Use a disposable repository outside DL-Example. During class, observe the instructor in that separate practice repository and make your own predictions. Repeat the execution independently afterward with the self-study instructions below. The branch and GitHub concept pages in the handout are demonstrations; begin your own contribution only at Hands-on Part 1.
 
 Start in a new practice repository with `value=A` already committed in `notes.txt`. The table entries are file contents; HEAD means content in the current commit. Save B, run `git add notes.txt`, then save C without adding again. Before committing, fill the final row independently:
 
@@ -129,10 +129,18 @@ Status should report a clean working tree. For another attempt, change the folde
 
 ## Hands-on Part 1: local Git
 
-Return to your DL-Example clone in PowerShell; the staging lab is a separate repository. Choose the path before running commands:
+Your hands-on contribution starts here. Return to your DL-Example clone in PowerShell; the staging lab is separate. First check the repository, branch, and current work:
+
+```powershell
+git rev-parse --show-toplevel
+git branch --show-current
+git status
+```
+
+Choose the path before running commands:
 
 - **First attempt:** inspect status and begin with a clean working tree and no existing `docs/classroom-note` branch. Run the block below once.
-- **Resume this same unfinished task:** skip that block. Stay on its branch, or inspect status and use `git switch docs/classroom-note` from a clean working tree. Keep your existing note and continue from the first unfinished step. If the intended note is already committed, continue with Part 2. If a PR already exists, open it and address feedback on the same branch. Preserve existing edits and ask the instructor if they prevent switching.
+- **Resume this same unfinished task:** skip that block. Already on `docs/classroom-note`? Stay there with your uncommitted work and continue. If switching is needed, inspect status first and ask for help with uncommitted changes; from a clean tree, use `git switch docs/classroom-note`. Keep your existing note and continue from the first unfinished step. If the intended note is already committed, continue with Part 2. If a PR already exists, open it and address feedback on the same branch. Preserve existing edits and ask the instructor if they prevent switching.
 - **A different new task:** update main and create a different task branch name. Switching to an old branch resumes its existing history; it does not restart it from updated main.
 
 **Run one command at a time. If a command fails, stop and show the message to the instructor.** A clean working tree does not guarantee that a fast-forward update will succeed.
@@ -162,7 +170,7 @@ Create `docs/classroom-notes/YOUR-USERNAME.md` in your editor, making the direct
 ## Commit and push
 ```
 
-Write one sentence under each heading. Useful terms: working file, index, local history, fork. You may explain orally in Chinese before writing your English note. The Git check concerns which location each action changes and which locations remain unchanged; English fluency is not the learning target. Include no personal contact information or training artifacts.
+Write one sentence under each heading. Useful terms: working file, index, local history, fork. Discuss with a partner in a helpful language, then write the final explanation in English. The Git check concerns which location each action changes and which locations remain unchanged; English fluency is not the learning target. Include no personal contact information or training artifacts.
 
 This file starts **untracked**. It differs from the tracked `notes.txt` staging demonstration above. Inspect and select it:
 
@@ -218,7 +226,27 @@ git branch --show-current
 git rev-parse HEAD
 ```
 
-Open the submitted PR and record its URL along with those values. Show its diff and your answers to both pause questions. Respond to feedback by committing and pushing to the same task branch; the PR updates. Creating a PR proposes integration; it does not merge it. Maintainer review, approval, and merge are separate events that can happen after class. Fork CI may also require maintainer approval. An open PR is sufficient for classroom submission.
+After creating the PR, keep the branch, full contribution SHA, and PR URL in a temporary note. Then everyone answers the two questions about their own contribution. Edit the PR description **once**, saving all five fields together:
+
+```markdown
+## Classroom evidence
+
+- Task branch:
+- Contribution commit SHA:
+- PR URL:
+
+### Content answer
+What did your recorded commit contain, and why?
+
+### Location answer
+Where did your committed change exist after push?
+```
+
+Show the saved description and diff to the instructor. Keep the self URL in this portable record for follow-up and private offline collection. The two answers are separate from the two sentences in your classroom-note file; no extra commit is needed to submit them. Identify the actual SHA you explain. Later feedback may need another update: commit and push revisions to the same task branch, then update the affected evidence.
+
+An open PR completes publication. All five saved, accessible fields establish receipt; conceptual correctness is checked separately against the actual contribution. Creating a PR does not merge it. Maintainer review, approval, merge, and fork CI permission are separate events and may follow after class.
+
+If publishing is blocked, privately hand in `submission-record.md` with the same five fields, factual pending reasons, and the local commit/error. Use the instructor's agreed collection route; leaving it only on your laptop is not collection. This is pending publication, not a completed PR.
 
 ## Optional ML extension
 
