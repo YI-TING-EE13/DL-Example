@@ -12,6 +12,8 @@ Windows with Python 3.12 and uv is the primary teaching environment. CUDA is use
 
 The [classroom contribution guide](docs/teaching.md) requires only Git, a GitHub account, a text editor, and a terminal. Fork and clone the project, write a short explanation, and open a pull request. Python, uv, PyTorch, and model checks are optional for this Git task. The installation and training sections below apply when you run the ML examples.
 
+Create your own file in [docs/classroom-notes](docs/classroom-notes/README.md). After the two individual questions, save branch, contribution SHA, PR URL, Content answer, and Location answer together using the [submission template](docs/classroom-submission.md). Blocked publication uses truthful pending fields and private collection. See [course preparation and readiness](docs/course-ready.md) for instructor checks.
+
 ## Install
 
 Install [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/). Open PowerShell, clone the repository, and enter its directory:

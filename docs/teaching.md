@@ -56,6 +56,8 @@ For troubleshooting, use GitHub's [credential instructions](https://docs.github.
 
 ## Understand staging with a tracked file
 
+The classroom objective for unstage is to explain how it preserves working-file edits; independent execution is after-class practice.
+
 Use a disposable repository outside DL-Example. During class, observe the instructor in that separate practice repository and make your own predictions. Repeat the execution independently afterward with the self-study instructions below. The branch and GitHub concept pages in the handout are demonstrations; begin your own contribution only at Hands-on Part 1.
 
 Start in a new practice repository with `value=A` already committed in `notes.txt`. The table entries are file contents; HEAD means content in the current commit. Save B, run `git add notes.txt`, then save C without adding again. Before committing, fill the final row independently:
@@ -162,7 +164,9 @@ The student workflow is: **start or resume > edit/save > inspect/add/verify > co
 
 ### Create a new documentation file
 
-Create `docs/classroom-notes/YOUR-USERNAME.md` in your editor, making the directory if needed. Replace `YOUR-USERNAME` with your GitHub username in both the filename and the `git add` command. Start with these headings:
+In the editor's Explorer, expand `docs`, then open `classroom-notes`. Current main includes that folder and its README. If an older fork does not have it, use **New Folder** to create `classroom-notes` inside `docs`. Inside that folder, use **New File** to create `YOUR-USERNAME.md`.
+
+Replace `YOUR-USERNAME` with your GitHub username in the filename and `git add` command. Keep any existing note when resuming; leave this folder's README and other students' notes unchanged. Start your file with these headings:
 
 ```markdown
 ## Save and commit
@@ -219,14 +223,14 @@ Check that the diff contains only your intended file and changes. Select **Creat
 
 ### Record and revise your result
 
-In PowerShell, read the current branch and full commit identifier:
+On the task branch, read the current branch and full commit identifier:
 
 ```powershell
 git branch --show-current
 git rev-parse HEAD
 ```
 
-After creating the PR, keep the branch, full contribution SHA, and PR URL in a temporary note. Then everyone answers the two questions about their own contribution. Edit the PR description **once**, saving all five fields together:
+Gather the actual branch, contribution SHA, and PR URL temporarily. Check that the SHA identifies your contribution; an unrelated starting HEAD is not contribution evidence. Answer both questions, then save all five fields together in one PR description update:
 
 ```markdown
 ## Classroom evidence
@@ -236,17 +240,22 @@ After creating the PR, keep the branch, full contribution SHA, and PR URL in a t
 - PR URL:
 
 ### Content answer
-What did your recorded commit contain, and why?
+What did your commit record, and why?
 
 ### Location answer
-Where did your committed change exist after push?
+Where is your commit now?
+If push is blocked, distinguish now from the expected locations after a successful push.
+
+### Publication note (only if blocked)
+Last completed step:
+Error and pending reason:
 ```
 
-Show the saved description and diff to the instructor. Keep the self URL in this portable record for follow-up and private offline collection. The two answers are separate from the two sentences in your classroom-note file; no extra commit is needed to submit them. Identify the actual SHA you explain. Later feedback may need another update: commit and push revisions to the same task branch, then update the affected evidence.
+The full [submission template and pending cases](classroom-submission.md) can also be used for private collection. These answers are separate from the two sentences in your classroom-note file; no extra commit is needed just to submit them. Show the saved record and actual diff to the instructor. Identify the actual SHA you explain. Address later feedback on the same task branch and update the affected evidence.
 
-An open PR completes publication. All five saved, accessible fields establish receipt; conceptual correctness is checked separately against the actual contribution. Creating a PR does not merge it. Maintainer review, approval, merge, and fork CI permission are separate events and may follow after class.
+If no PR exists, use `N/A - publication pending` for its URL. If the contribution has not been committed, use `N/A - commit pending` for its SHA. Do not invent an identifier. If push is blocked, report observed locations now and expected locations after a successful push separately. If push succeeded but PR creation failed, report the actual post-push locations; only PR creation is pending. Keep an existing PR URL if one already exists.
 
-If publishing is blocked, privately hand in `submission-record.md` with the same five fields, factual pending reasons, and the local commit/error. Use the instructor's agreed collection route; leaving it only on your laptop is not collection. This is pending publication, not a completed PR.
+With publication blocked, privately hand in `submission-record.md` with the same five fields, last completed step, error, and pending reason through the instructor's agreed route. A file left only on your laptop is not collected. An open PR completes publication; all five saved, accessible fields establish receipt; correctness is checked against the actual contribution. Maintainer approval, merge, and fork CI permission are separate and may follow after class. Pending publication is not a completed PR.
 
 ## Optional ML extension
 
