@@ -56,15 +56,56 @@ For troubleshooting, use GitHub's [credential instructions](https://docs.github.
 
 ## Understand staging with a tracked file
 
-The instructor prepares a separate disposable repository with a committed `notes.txt` containing `value=A`. Edit/save B, inspect ordinary diff, add the file, and inspect staged diff. Then save C without adding again. Predict the next ordinary commit before running it:
+Use a disposable repository outside DL-Example. The instructor demonstrates the basic A-to-B cycle before the prediction below. The branch and GitHub concept pages in the handout are demonstrations; begin your own contribution only at Hands-on Part 1.
 
-- Ordinary diff compares index B with working C.
-- Staged diff compares HEAD A with index B.
-- Commit records B; the working file remains C.
+Start with a committed `notes.txt` containing `value=A`. Save B, run `git add notes.txt`, then save C without adding again. Before committing, fill the final row independently:
 
-Adding only `notes.txt` does not clear a README change staged earlier. The entire staged diff determines the proposed change. An empty ordinary `git diff` can coexist with staged changes and untracked files; use status to check both.
+| Action | Working file | Index | HEAD |
+|---|---|---|---|
+| Initial commit | A | A | A |
+| Save B | B | A | A |
+| Add notes.txt | B | B | A |
+| Save C | C | B | A |
+| Your prediction after commit | ___ | ___ | ___ |
 
-After committing B, add C and run `git restore --staged notes.txt`. The index returns to B while working C remains. For a newly staged file, unstage leaves it untracked. Plain `git restore <path>` can discard unstaged edits; use it only as an optional recovery demonstration on disposable content.
+Run `git status`. This excerpt omits branch information and hints; tabs are expanded:
+
+```text
+Changes to be committed:
+    modified:   notes.txt
+
+Changes not staged for commit:
+    modified:   notes.txt
+```
+
+The first group contains selected changes; the second contains edits made after add. One path can appear in both groups. Inspect both comparisons and point to evidence for your prediction:
+
+| Command | Before -> after |
+|---|---|
+| `git diff --staged -- notes.txt` | HEAD -> index: A -> B |
+| `git diff -- notes.txt` | Index -> working tree: B -> C |
+
+In a patch, `-` marks the before side and `+` marks the after side. The staged patch includes `-value=A` and `+value=B`; ordinary diff includes `-value=B` and `+value=C`.
+
+Consider one change before testing: if you add `notes.txt` again after saving C, what will the first commit contain? Write a prediction. Then test the original sequence **without another add**:
+
+```powershell
+git commit -m "Record the staged value"
+Get-Content notes.txt
+git show :notes.txt
+git show HEAD:notes.txt
+```
+
+Compare the working file, index, and commit with your prediction. After checking, add the file again and use `git restore --staged notes.txt`. Working edits remain; inspect status. For a newly staged file, unstage leaves it untracked. Plain `git restore <path>` can discard unstaged edits; keep that demonstration on disposable content.
+
+Adding only `notes.txt` does not clear a README change staged earlier. Review the entire staged diff. An empty ordinary diff can coexist with staged and untracked changes; inspect status for the full picture.
+
+<details>
+<summary>Self-study answer check — open after predicting and observing</summary>
+
+The original sequence finishes with working C, index B, and HEAD B: commit records the selected B snapshot. If you add C again before the first commit, the three views contain C after committing. The decisive condition is the last add, not the last editor save. After the original B commit, adding and then unstaging C restores index B while preserving working C.
+
+</details>
 
 ### Repeat the experiment yourself
 
@@ -84,7 +125,13 @@ Status should report a clean working tree. For another attempt, change the folde
 
 ## Hands-on Part 1: local Git
 
-Return to your DL-Example clone in PowerShell; the staging lab is a separate repository. Begin with a clean working tree. Update local main, update your fork's main, then create the task branch:
+Return to your DL-Example clone in PowerShell; the staging lab is a separate repository. Choose the path before running commands:
+
+- **First attempt:** inspect status and begin with a clean working tree and no existing `docs/classroom-note` branch. Run the block below once.
+- **Resume this same unfinished task:** skip that block. Stay on its branch, or inspect status and use `git switch docs/classroom-note` from a clean working tree. Preserve existing edits and ask the instructor if they prevent switching.
+- **A different new task:** update main and create a different task branch name. Switching to an old branch resumes its existing history; it does not restart it from updated main.
+
+First-attempt commands:
 
 ```powershell
 git status
@@ -95,17 +142,21 @@ git push origin main
 git switch -c docs/classroom-note
 ```
 
-Fetch downloads commits and updates your local record of the original main branch (`upstream/main`); it does not change your working files. The fast-forward merge updates local main when history permits. If a command fails, read its message and inspect status before continuing. Ask the instructor about divergent history; a force push or destructive reset is not a general recovery step.
+Fetch downloads commits and updates `upstream/main`; working files stay unchanged. The fast-forward merge updates local main when history permits; push updates the fork's main. If any command fails, read its message and inspect status with the instructor before continuing.
 
-The contribution then follows this sequence:
-
-**Choose task > create branch > edit/save > inspect/add/verify > commit locally > push to fork > open PR > review/merge.**
-
-Use the update/start sequence once per new task. If the branch already exists, use `git switch docs/classroom-note` instead of creating it again.
+The student workflow is: **start or resume > edit/save > inspect/add/verify > commit > push > verify the fork's task branch > prepare PR > review diff > create PR > record result**. Maintainer review and merge can follow after class.
 
 ### Create a new documentation file
 
-Create `docs/classroom-notes/YOUR-USERNAME.md` in your editor, making the directory if needed. Write one sentence explaining editor save versus commit, and one explaining commit versus push. Use your own GitHub username and explanation; include no personal contact information or training artifacts.
+Create `docs/classroom-notes/YOUR-USERNAME.md` in your editor, making the directory if needed. Replace the username. Start with these headings:
+
+```markdown
+## Save and commit
+
+## Commit and push
+```
+
+Write one sentence under each heading. Useful terms: working file, index, local history, fork. You may explain orally in Chinese before writing your English note. The Git check concerns which location each action changes and which locations remain unchanged; English fluency is not the learning target. Include no personal contact information or training artifacts.
 
 This file starts **untracked**. It differs from the tracked `notes.txt` staging demonstration above. Inspect and select it:
 
@@ -135,7 +186,7 @@ In the same clone and on the same task branch, use PowerShell to publish the bra
 git push -u origin docs/classroom-note
 ```
 
-Keep any authentication error message for diagnosis. After a successful push, continue on GitHub.
+Keep any authentication error message for diagnosis. After a successful push, open **your fork** on GitHub. Use the branch selector to choose **docs/classroom-note**, then open your new file and verify its text. A fork opened on main will not show the task branch's new file. Continue to the PR comparison after this check.
 
 **Pause after push: Where does your committed change exist now?** Name every location containing it. Explain whether the original main branch has changed and what must happen before it does.
 
@@ -154,7 +205,14 @@ Review the displayed diff and confirm that it contains only the intended file an
 
 ### Record and revise your result
 
-Open the submitted PR and record its URL, branch name, and commit SHA. Show its diff and your answers to both pause questions. Respond to feedback by committing and pushing to the same task branch; the PR updates. Creating a PR proposes integration; it does not merge it. Maintainer review, approval, and merge are separate events that can happen after class. Fork CI may also require maintainer approval. An open PR is sufficient for classroom submission.
+In PowerShell, read the current branch and full commit identifier:
+
+```powershell
+git branch --show-current
+git rev-parse HEAD
+```
+
+Open the submitted PR and record its URL along with those values. Show its diff and your answers to both pause questions. Respond to feedback by committing and pushing to the same task branch; the PR updates. Creating a PR proposes integration; it does not merge it. Maintainer review, approval, and merge are separate events that can happen after class. Fork CI may also require maintainer approval. An open PR is sufficient for classroom submission.
 
 ## Optional ML extension
 
