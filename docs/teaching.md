@@ -101,7 +101,7 @@ The contribution then follows this sequence:
 
 **Choose task > create branch > edit/save > inspect/add/verify > commit locally > push to fork > open PR > review/merge.**
 
-Use the update/start sequence once per new task. Do not repeatedly create an existing branch.
+Use the update/start sequence once per new task. If the branch already exists, use `git switch docs/classroom-note` instead of creating it again.
 
 ### Create a new documentation file
 
