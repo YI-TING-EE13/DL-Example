@@ -62,6 +62,8 @@ The instructor prepares a separate disposable repository with a committed `notes
 - Staged diff compares HEAD A with index B.
 - Commit records B; the working file remains C.
 
+Adding only `notes.txt` does not clear a README change staged earlier. The entire staged diff determines the proposed change. An empty ordinary `git diff` can coexist with staged changes and untracked files; use status to check both.
+
 After committing B, add C and run `git restore --staged notes.txt`. The index returns to B while working C remains. For a newly staged file, unstage leaves it untracked. Plain `git restore <path>` can discard unstaged edits; use it only as an optional recovery demonstration on disposable content.
 
 ### Repeat the experiment yourself
@@ -69,15 +71,16 @@ After committing B, add C and run `git restore --staged notes.txt`. The index re
 Use the Git identity from preclass setup. In PowerShell, go to your projects folder, **outside DL-Example and any other repository**. Choose a new folder name for each attempt:
 
 ```powershell
-mkdir git-state-lab
-cd git-state-lab
+mkdir git-state-lab-01
+cd git-state-lab-01
 git init -b main
 Set-Content -Encoding ascii notes.txt "value=A"
 git add notes.txt
 git commit -m "Prepare baseline A"
+git status
 ```
 
-You now have the tracked A baseline. Use the staging example above: save B, add it, then save C without adding again. Predict and compare before committing. `git show HEAD:notes.txt` reads the recorded version; `Get-Content notes.txt` reads the working file. To repeat from A, use a new folder rather than resetting existing work. A clone already contains Git data; do not initialize a nested repository inside it.
+Status should report a clean working tree. For another attempt, change the folder name in both commands to `git-state-lab-02`. Do not reinitialize the previous exercise folder. You now have the tracked A baseline. Use the staging example above: save B, add it, then save C without adding again. Predict and compare before committing. `git show HEAD:notes.txt` reads the recorded version; `Get-Content notes.txt` reads the working file. To repeat from A, use a new folder rather than resetting existing work. A clone already contains Git data; do not initialize a nested repository inside it.
 
 ## Hands-on Part 1: local Git
 
@@ -136,7 +139,7 @@ Keep any authentication error message for diagnosis. After a successful push, co
 
 **Pause after push: Where does your committed change exist now?** Name every location containing it. Explain whether the original main branch has changed and what must happen before it does.
 
-### Open and revise a pull request
+### Prepare a pull request
 
 On the original repository, choose **Pull requests > New pull request**, then **Compare across forks** when needed:
 
@@ -145,9 +148,13 @@ On the original repository, choose **Pull requests > New pull request**, then **
 | Where should the change go? | **Base:** `YI-TING-EE13/DL-Example`, branch `main` |
 | Where does the change come from? | **Head:** your fork, branch `docs/classroom-note` |
 
-Read the displayed diff before choosing **Create pull request**. Explain what changed and how you checked it. Review the two sentences for conceptual accuracy; a synthetic Python check cannot assess their meaning and is not required for this task.
+### Review the diff, then create the PR
 
-Show the open PR, its intended file/text, and your answers to both pause questions. Keep the branch name, commit SHA, and PR link. Respond to feedback by committing and pushing to the same task branch; the PR updates. Opening a PR proposes a change; it does not merge it. Approval and merge are separate decisions. Maintainer approval may also be needed for fork CI. An open PR is sufficient for the classroom submission; review and merge can happen later.
+Review the displayed diff and confirm that it contains only the intended file and changes. Select **Create pull request**, add a short title and description of what changed and how you checked it, then submit the PR. A reviewer checks the sentences for conceptual accuracy; a synthetic Python check is not required for this task.
+
+### Record and revise your result
+
+Open the submitted PR and record its URL, branch name, and commit SHA. Show its diff and your answers to both pause questions. Respond to feedback by committing and pushing to the same task branch; the PR updates. Creating a PR proposes integration; it does not merge it. Maintainer review, approval, and merge are separate events that can happen after class. Fork CI may also require maintainer approval. An open PR is sufficient for classroom submission.
 
 ## Optional ML extension
 
