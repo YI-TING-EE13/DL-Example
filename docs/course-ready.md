@@ -28,11 +28,12 @@ The repository default branch, `main`, is the classroom entry. Fork its latest m
 | Ref | Role |
 |---|---|
 | `main` | Current delivery and classroom source; use its latest tested revision. |
-| `refactor/reproducible-teaching-example` | Preserved implementation history. Its tip is an ancestor of main; its older documents are historical. |
-| `docs/classroom-round4-20261030` | Preserved PR #1 head after squash merge. Its tree matches main at `c208cf12d8e3a28e574b04a4ae0e3aa8aa7cff11`, before later documentation updates. |
-| Other maintainer `docs/*` branches | Focused PR work or completed PR history; read the associated PR state. They do not replace main. |
+| `archive/classroom-round4-20261030` (tag) | Preserved [PR #1](https://github.com/YI-TING-EE13/DL-Example/pull/1) head `209c5a8bb7da438ae9537f52f276e97fa070c5a6`. Its tree matches main at `c208cf12d8e3a28e574b04a4ae0e3aa8aa7cff11`, before later documentation updates. |
+| `archive/course-ready-source-audit-20261030` (tag) | Preserved [PR #2](https://github.com/YI-TING-EE13/DL-Example/pull/2) head `e7debfa0fa12e7c0bef4079606c0670fe0b6f828`. Its tree matches main at `8f491c83d62735bf8e409e161971c2c4b5eaddde`, before this branch-guide update. |
+| Implementation commit `d3eac41e9f5c62639ab4370f6f0a422a07cc772a` | Remains an ancestor of main and identifies the historical executable verification. Its separate development branch is unnecessary. |
+| Active maintainer work branches | Temporary, focused PR work; read the associated PR state. They do not replace main. |
 
-Historical refs are retained without force updates or deletion. A squash-merged PR head need not be an ancestor by commit identity; compare the associated merge and content before treating its commits as unfinished work. Old snapshots do not redefine the current classroom instructions.
+The three completed development branches can be removed after this guide's PR passes checks and is merged. The two archive tags preserve the unique pre-squash PR histories; the implementation commit remains reachable through main. A squash-merged PR head need not be an ancestor by commit identity; compare the associated merge and content before treating its commits as unfinished work. No original commit history is rewritten. Old snapshots do not redefine the current classroom instructions. Students do not need these tags or a permanent demonstration branch to complete the fork workflow.
 
 ## Source, comment and readiness audit
 
