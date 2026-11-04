@@ -1,6 +1,6 @@
 # Contributing
 
-Discuss a focused task, create a branch, and submit a pull request to `main`. Students should follow [the fork workflow](docs/teaching.md). Keep source changes, experiment-method changes, and documentation updates distinguishable.
+Discuss a focused task, create a branch, and submit a pull request to `main`. For a classroom note, use the [minimal contribution entry](docs/classroom-notes/README.md) and the instructor-provided Git course workflow. Classroom submissions are assessed separately and may be closed without merging. Keep source changes, experiment-method changes, and documentation updates distinguishable.
 
 After installing one compute extra, run from the repository root:
 

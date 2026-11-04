@@ -1,22 +1,39 @@
 # DL-Example
 
-Small PyTorch image-classification experiments for learning reproducible development with Git and GitHub.
+[![CPU checks](https://github.com/YI-TING-EE13/DL-Example/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/YI-TING-EE13/DL-Example/actions/workflows/ci.yml)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-blue)](https://docs.python.org/3.12/)
+[![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-EE4C2C)](https://pytorch.org/get-started/previous-versions/#v260)
+[![License MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-- **MNIST:** a small CNN and a five-epoch reference configuration.
-- **CIFAR-10:** the original Shake-Shake classifier, retained as an advanced example.
-- **Workflow:** configure an experiment, inspect a change, run a check, commit it, and open a pull request.
+## Project overview
 
-Windows with Python 3.12 and uv is the primary teaching environment. CUDA is used when available; CPU execution is supported. See [verification](docs/verification.md) for what was actually tested. Full CIFAR-10 accuracy reproduction is outside the current validation scope.
+Small PyTorch image-classification experiments for learning, running, modifying and studying deep learning algorithms. The project focuses on model behavior, training/evaluation and inspectable experiment records. The Git course borrows it for a small documentation PR; that activity is separate from the ML setup.
 
-## Git classroom task
+## Supported models
 
-The [classroom contribution guide](docs/teaching.md) requires only Git, a GitHub account, a text editor, and a terminal. Fork and clone the project, write a short explanation, and open a pull request. Python, uv, PyTorch, and model checks are optional for this Git task. The installation and training sections below apply when you run the ML examples.
+| Dataset | Model | Intended use |
+|---|---|---|
+| MNIST | Small CNN | Five-epoch reference configuration and short pipeline checks |
+| CIFAR-10 | Original Shake-Shake classifier | Advanced educational architecture; full paper reproduction is not claimed |
 
-Create your own file in [docs/classroom-notes](docs/classroom-notes/README.md). After the two individual questions, save branch, contribution SHA, PR URL, Content answer, and Location answer together using the [submission template](docs/classroom-submission.md). Blocked publication uses truthful pending fields and private collection. See [course preparation and readiness](docs/course-ready.md) for instructor checks.
+## Requirements
 
-Use the latest `main` as the classroom starting point. [Branch authority and the current audit scope](docs/course-ready.md#branch-authority) distinguish delivery from preserved implementation and PR history.
+Python 3.12, Git and [uv](https://docs.astral.sh/uv/getting-started/installation/). Choose one PyTorch CPU or CUDA extra. Windows is the primary local environment; CPU CI runs Windows and Ubuntu. See [verification](docs/verification.md) for measured scope. CUDA requires a compatible NVIDIA driver and is not certified by CPU CI.
 
-## Install
+## Quick start
+
+Clone the project, install the locked CPU environment, and run a synthetic check without a dataset:
+
+```powershell
+git clone https://github.com/YI-TING-EE13/DL-Example.git
+cd DL-Example
+uv sync --locked --extra cpu
+uv run --no-sync python -m dl_example check --device cpu
+```
+
+This verifies a small forward/backward/optimizer step, not full-training accuracy. Follow the sections below for GPU setup, real datasets and evaluation.
+
+## Installation — CPU / CUDA
 
 Install [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/). Open PowerShell, clone the repository, and enter its directory:
 
@@ -25,7 +42,7 @@ git clone https://github.com/YI-TING-EE13/DL-Example.git
 cd DL-Example
 ```
 
-Students contributing through a fork should follow [the classroom workflow](docs/teaching.md) and clone their own fork instead.
+For a classroom documentation contribution, use the minimal [classroom entry](docs/classroom-notes/README.md) and the instructor-provided course handout; clone your own fork.
 
 Choose **one** PyTorch build. A CUDA build supports both GPU execution and explicit CPU execution:
 
@@ -51,7 +68,7 @@ uv run --no-sync python -m dl_example check --device cpu
 
 The check performs a synthetic forward pass, backward pass, and optimizer update without downloading a dataset. `--device auto` is the default. Use `--device cuda` to require CUDA; that request fails clearly if CUDA is unavailable.
 
-## Train
+## Training and evaluation
 
 Run the complete MNIST configuration:
 
@@ -70,7 +87,7 @@ Datasets are downloaded on first use, including the complete source archives for
 
 Settings live in `configs/mnist.toml` and `configs/cifar10.toml`. CLI overrides include `--device`, `--epochs`, `--batch-size`, `--lr`, `--seed`, `--num-workers`, `--data-dir`, and `--output-dir`. Use `python -m dl_example train --help` through uv for the full list. `--smoke` fixes its epoch and subset limits after other overrides.
 
-## Read the results
+## Experiment records and reproducibility
 
 Each run prints its unique directory under `runs/`:
 
@@ -93,7 +110,17 @@ uv run --no-sync python -m dl_example evaluate runs/YOUR-RUN/best.pt --device cp
 
 Validation examples come from a seeded split of the official training set. The official test set is used after model selection. Checkpoints support evaluation loading; exact interrupted-training resumption is not implemented. Fixed seeds reduce variability within a controlled environment and do not guarantee equality across hardware or library versions.
 
-## Develop
+## Project structure
+
+| Location | Responsibility |
+|---|---|
+| `run_mnist.py`, `run_cifar.py` | Small entry scripts retained for familiarity |
+| `configs/` | Versioned experiment settings |
+| `src/dl_example/` | CLI, data preparation, model definitions, training, and provenance |
+| `tests/` | CPU tests without external dataset downloads |
+| `docs/` | ML architecture, reproducibility, verification and a minimal classroom entry |
+
+## Testing / CI
 
 The default development group includes pytest and Ruff:
 
@@ -105,20 +132,19 @@ uv run --no-sync ruff format --check .
 
 An optional `tracking` extra enables local W&B logging. Install it together with the chosen compute extra and pass `--tracking`. Cloud upload is not part of the default workflow.
 
-## Project guide
-
-| Location | Responsibility |
-|---|---|
-| `run_mnist.py`, `run_cifar.py` | Small entry scripts retained for familiarity |
-| `configs/` | Versioned experiment settings |
-| `src/dl_example/` | CLI, data preparation, model definitions, training, and provenance |
-| `tests/` | CPU tests without external dataset downloads |
-| `docs/` | Architecture, reproducibility, classroom contribution, and verification |
+## Documentation and contributing
 
 - [Architecture and migration](docs/architecture.md)
 - [Reproducibility protocol](docs/reproducibility.md)
-- [Fork, clone, and pull request practice](docs/teaching.md)
 - [Verification record and limitations](docs/verification.md)
 - [Contribution guide](CONTRIBUTING.md)
 
-Datasets, environments, weights, and generated run artifacts are ignored by Git. Record results using their actual code revision, configuration, data, and environment. This project is distributed under the [MIT License](LICENSE). Dataset and dependency terms remain those of their respective providers.
+For the Git course, fork/clone your own copy and use the minimal [classroom-note contribution entry](docs/classroom-notes/README.md). The detailed lesson, collection template and teacher preparation are maintained in the separate instructor-provided Git course materials. Classroom PRs may be closed without merging after assessment; participation does not imply integration into ML main.
+
+## Versioning
+
+The package version is 0.2.0. Stable code versions use annotated `vX.Y.Z` tags; historical `archive/` tags preserve earlier PR heads and are not software releases. A Git tag does not automatically create a GitHub Release or preserve data/environment. Read the [version policy](docs/versioning.md) for scope and compatibility.
+
+## License
+
+Distributed under the [MIT License](LICENSE). Dataset and dependency terms remain those of their providers. Datasets, weights, environments and generated runs are ignored; keep actual code/configuration/data/environment/result provenance together.

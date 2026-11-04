@@ -12,4 +12,4 @@ Start with these headings and write one English sentence under each:
 
 Keep an existing note when resuming. Do not edit this README or another student's note. Include no contact information, data, weights, environments, or generated training files. Stage only your intended path, then inspect the staged diff.
 
-Follow the [classroom workflow](../teaching.md) and [five-field submission template](../classroom-submission.md). These two explanatory sentences and the final individual evidence questions serve different purposes.
+Use the instructor-provided Git course handbook (`student/CLASSROOM_WORKFLOW.md`) for the detailed workflow and `student/STUDENT_SUBMISSION.md` for the five-field evidence record. The two explanatory sentences here and the final contribution-specific understanding answers serve different purposes. PR base is original/main; head is your fork/task branch. A practice PR may be closed without merging after assessment. Do not merge or delete other students' work.
